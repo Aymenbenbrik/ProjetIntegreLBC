@@ -1,0 +1,470 @@
+\documentclass[11pt,a4paper]{article}
+
+% ================ Encodage et langue ================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{textcomp}
+
+% ================ Mise en page ================
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+
+% ================ Couleurs et liens ================
+\usepackage[table]{xcolor}
+\definecolor{primary}{HTML}{0B5394}
+\definecolor{accent}{HTML}{1F77B4}
+\definecolor{light}{HTML}{F2F2F2}
+\definecolor{codebg}{HTML}{F6F8FA}
+\definecolor{rulec}{HTML}{D0D7DE}
+
+\usepackage[colorlinks=true, linkcolor=primary, urlcolor=primary, citecolor=primary]{hyperref}
+
+% ================ Tableaux ================
+\usepackage{longtable, booktabs, array, tabularx}
+\renewcommand{\arraystretch}{1.25}
+\arrayrulecolor{rulec}
+
+% ================ Listes ================
+\usepackage{enumitem}
+\setlist{itemsep=2pt, topsep=4pt}
+
+% ================ Code et citations ================
+\usepackage{fancyvrb}
+\usepackage{framed}
+\definecolor{shadecolor}{named}{light}
+
+% Encadrés pour les blocs > (quotes)
+\usepackage{mdframed}
+\newmdenv[
+  linecolor=primary,
+  linewidth=2pt,
+  topline=false, bottomline=false, rightline=false,
+  innerleftmargin=10pt, innerrightmargin=8pt,
+  innertopmargin=6pt, innerbottommargin=6pt,
+  backgroundcolor=codebg,
+  skipabove=8pt, skipbelow=8pt
+]{quotebox}
+\renewenvironment{quote}{\begin{quotebox}}{\end{quotebox}}
+
+% ================ Titres ================
+\usepackage{titlesec}
+\setcounter{secnumdepth}{0}
+\titleformat{\section}{\Large\bfseries\color{primary}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{accent}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{0.6em}{}
+
+% ================ En-têtes et pieds de page ================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{gray}ESPRIT School of Business --- L3 Business Computing BI --- Projet Intégré}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% ================ Pandoc helpers ================
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\passthrough}[1]{#1}
+
+\usepackage{calc}
+\providecommand{\real}[1]{#1}
+
+
+% ================ Métadonnées ================
+\title{\color{primary}\textbf{Description des Données}}
+\author{Aymen Ben Brik et Hela Hammami}
+\date{2026}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+
+{\Large\bfseries ESPRIT School of Business}\\[0.3cm]
+{\large Licence 3 --- Business Computing BI}\\[2cm]
+
+{\color{gray}\large Projet Intégré}\\[0.3cm]
+{\color{gray}\large Analyse et Prédiction du Churn Client}\\[2.2cm]
+
+\rule{0.85\linewidth}{1.2pt}\\[0.6cm]
+{\Huge\bfseries\color{primary} Description des Données\par}
+\rule{0.85\linewidth}{1.2pt}\\[2cm]
+
+{\large Tuteurs du projet}\\[0.2cm]
+{\Large\bfseries Aymen Ben Brik et Hela Hammami}\\[1cm]
+{\large 2026}
+
+\vfill
+{\color{gray}\small Document à destination des étudiants}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+Les données mises à votre disposition sont issues d'un système
+d'information bancaire. Elles ont été \textbf{anonymisées et
+généralisées} : identifiants aléatoires, libellés neutres,
+regroupements, dates et montants arrondis. Elles conservent leur
+cohérence d'ensemble, mais ne décrivent plus aucune personne ni aucun
+site de façon exploitable.
+
+\begin{quote}
+\textbf{À retenir} : les dates ont été volontairement \textbf{décalées}
+et les montants \textbf{arrondis et plafonnés}. Ils ne doivent pas être
+rapprochés d'un calendrier ou d'une source externe. Raisonnez sur des
+durées, des évolutions et des ordres de grandeur.
+\end{quote}
+
+\section{1. Vue d'ensemble}\label{vue-densemble}
+
+Le jeu de données est composé de :
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{1 fichier principal} \texttt{data\_churn.csv}
+  (\textasciitilde75 Mo, 483 536 lignes, 32 colonnes) ;
+\item
+  \textbf{5 fichiers de référence} au format Excel (\texttt{.xlsx}) qui
+  donnent le libellé associé aux codes du fichier principal.
+\end{itemize}
+
+Il décrit 363 024 clients et 410 309 comptes. Une ligne correspond à un
+\textbf{rapprochement client / compte / produit} : un client ou un
+compte peut donc apparaître plusieurs fois, et environ 9 \% des lignes
+correspondent à des clients sans compte renseigné. Définissez clairement
+votre grain avant tout calcul.
+
+Pour les plus gros clients, le nombre de lignes a été plafonné à 100.
+\textbf{Les totaux ne représentent donc pas un encours réel} :
+utilisez-les pour comparer, pas comme des montants absolus.
+
+\section{2. Fichier principal --- Description des
+colonnes}\label{fichier-principal-description-des-colonnes}
+
+\subsection{2.1 Identifiants}\label{identifiants}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2941}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5294}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Colonne
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{CUSTOMER\_NO} & Code (\texttt{K…}) & Identifiant aléatoire du
+client \\
+\texttt{ACCOUNT\_NO} & Code (\texttt{X…}) & Identifiant aléatoire du
+compte \\
+\texttt{BRANCH\_GROUP} & Code (\texttt{AG01} à \texttt{AG20}) &
+Regroupement anonyme d'agences, sans signification géographique.
+\texttt{AG00} = masqué \\
+\end{longtable}
+}
+
+\subsection{2.2 Informations client}\label{informations-client}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2941}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5294}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Colonne
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{NATIONALITY\_REGION} & Texte & Zone de nationalité :
+\texttt{LOCAL}, \texttt{EUROPE}, \texttt{AFRIQUE\_MO},
+\texttt{AMERIQUES}, \texttt{ASIE\_OCEANIE}, \texttt{AUTRE} \\
+\texttt{RESIDENCE\_REGION} & Texte & Zone de résidence (mêmes
+modalités) \\
+\texttt{MARITAL\_STATUS} & Code & Statut marital (C = célibataire, M =
+marié(e), D = divorcé(e), V = veuf/veuve) \\
+\texttt{BIRTH\_PERIOD} & Année & Début de la tranche de naissance de 5
+ans (\texttt{1980} = 1980--1984). Dernière tranche basse : \texttt{1935}
+et avant \\
+\texttt{CUST\_OPENING\_DATE} & Date (YYYYMMDD) & Entrée en relation :
+début de trimestre, d'année ou de période de 5 ans selon le client \\
+\texttt{NATURE\_CLIENT} & Code & Type de client : \texttt{PPH} (personne
+physique), \texttt{PM} (personne morale), \texttt{PRO} (professionnel),
+\texttt{TRPP} et \texttt{TRPM} (autres catégories) \\
+\texttt{PARTYCLASS} & Texte & Classe commerciale : \texttt{Retail},
+\texttt{Premium}, \texttt{Corporate\ Small}, \texttt{Corporate} \\
+\texttt{LOB} & Code & Ligne métier (FK vers \texttt{TARGET.xlsx}) \\
+\texttt{SCORE\_KYC} & Code & Score de connaissance client (Know Your
+Customer) \\
+\texttt{COMPLETED\_FILE} & YES / vide & Dossier client complet \\
+\texttt{LAST\_REVIEW\_DATE} & Date (YYYYMMDD) & Dernière revue du
+dossier, ramenée au mois \\
+\texttt{NEXT\_\_REVIEW\_DATE} & Date (YYYYMMDD) & Prochaine revue
+prévue, ramenée au mois \\
+\texttt{INDUSTRY} & Code (A à Z) & Section d'activité (FK vers
+\texttt{INDUSTRY.xlsx}) \\
+\texttt{SALARY} & Numérique & Revenu déclaré, arrondi à 1 chiffre
+significatif et plafonné \\
+\end{longtable}
+}
+
+\subsection{2.3 Informations compte}\label{informations-compte}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2941}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5294}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Colonne
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{ACCOUNT\_STATUS} & Texte & \texttt{Active} ou \texttt{Closed}
+--- \textbf{base de la variable cible} \\
+\texttt{ACCT\_OPENING\_DATE} & Date (YYYYMMDD) & Ouverture du compte,
+ramenée au lundi de la semaine \\
+\texttt{ACCT\_CLOSE\_DATE} & Date (YYYYMMDD) & Clôture du compte,
+ramenée au lundi de la semaine \\
+\texttt{ACCOUNT\_CATEGORY} & Code (\texttt{CAT…}) & Famille de comptes
+(FK vers \texttt{ACCOUNT\_CATEGORY.xlsx}) \\
+\texttt{ACCOUNT\_TYPE\_DESC} & Texte & Libellé de la famille de
+comptes \\
+\texttt{CURRENCY} & Code & Devise (FK vers \texttt{CURRENCY.xlsx}) \\
+\texttt{CLOSURE\_REASON} & Code (\texttt{RSN…}) & Motif de clôture (FK
+vers \texttt{CLOSURE\_REASON.xlsx}) \\
+\texttt{ACCT\_BALANCE} & Numérique & Solde arrondi à 2 chiffres
+significatifs et plafonné \\
+\end{longtable}
+}
+
+\subsection{2.4 Informations produit}\label{informations-produit}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2941}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5294}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Colonne
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Type
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Description
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{PRODUCT\_GROUP} & Texte & Groupe de produits générique \\
+\texttt{PRODUCT\_LINE} & Texte & Ligne de produits \\
+\texttt{STARTDATE} & Date (YYYYMMDD) & Début du produit, ramené au
+mois \\
+\texttt{MATURITYDATE} & Date (YYYYMMDD) & Échéance, ramenée au mois \\
+\texttt{AMOUNT} & Numérique & Montant du produit, arrondi à 2 chiffres
+significatifs et plafonné \\
+\texttt{FIXEDRATE} & Numérique & Taux fixe, arrondi au demi-point \\
+\texttt{PRODUCT\_STATUS} & Texte & Statut du produit \\
+\end{longtable}
+}
+
+\section{3. Fichiers de référence}\label{fichiers-de-ruxe9fuxe9rence}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3750}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4375}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Fichier
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Clé
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Contenu
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{ACCOUNT\_CATEGORY.xlsx} & \texttt{CATEGORY\_ID} & Familles de
+comptes \\
+\texttt{CLOSURE\_REASON.xlsx} & \texttt{REASON\_ID} & Motifs de
+clôture \\
+\texttt{CURRENCY.xlsx} & \texttt{CURRENCY\_CODE} & Devises (\texttt{LCY}
+= monnaie locale, \texttt{LCC} = monnaie locale convertible) \\
+\texttt{INDUSTRY.xlsx} & \texttt{INDUSTRY\_CODE} & Sections
+d'activité \\
+\texttt{TARGET.xlsx} & \texttt{TARGET\_CODE} & Lignes métier \\
+\end{longtable}
+}
+
+Le calendrier n'est pas fourni : il est à construire vous-même.
+
+\section{4. Définition de la variable cible
+(churn)}\label{duxe9finition-de-la-variable-cible-churn}
+
+Le \textbf{churn} se définit ici comme la \textbf{clôture d'un compte} :
+
+\begin{verbatim}
+churn = 1  si  ACCOUNT_STATUS = "Closed"
+churn = 0  si  ACCOUNT_STATUS = "Active"
+ligne exclue si ACCOUNT_STATUS est vide
+\end{verbatim}
+
+Une définition plus fine est possible (par exemple : churn d'un client =
+clôture de \textbf{tous} ses comptes), à justifier dans le rapport. Le
+taux dépend fortement du grain : environ \textbf{40 \%} des lignes,
+\textbf{36 \%} des comptes et \textbf{32 \%} des clients. Le
+déséquilibre reste donc modéré : vérifiez-le et justifiez toute
+technique de rééquilibrage.
+
+\section{5. Variables pour la
+prédiction}\label{variables-pour-la-pruxe9diction}
+
+\subsection{5.1 Attention à la fuite de
+cible}\label{attention-uxe0-la-fuite-de-cible}
+
+Le fichier est une \textbf{photographie} prise après les clôtures :
+certaines colonnes révèlent le résultat au lieu de le prédire. \textbf{À
+ne pas utiliser comme variables explicatives} :
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{ACCT\_CLOSE\_DATE} et \texttt{CLOSURE\_REASON} : renseignées
+  uniquement pour les comptes clos.
+\item
+  \texttt{ACCT\_BALANCE} \textbf{et sa valeur manquante} : le solde est
+  vide pour environ 68 \% des comptes clos et n'est jamais vide pour les
+  comptes actifs. Toute variable dérivée de ce vide trahit la cible.
+\item
+  La famille de compte, la devise et le montant : leur disponibilité
+  peut suivre le même schéma, à contrôler.
+\item
+  \texttt{PRODUCT\_STATUS} : certaines modalités correspondent à la
+  fermeture.
+\end{itemize}
+
+Un score proche de 100 \% signale presque toujours une fuite, pas un bon
+modèle. Le rapport doit présenter ce contrôle.
+
+\subsection{5.2 Pistes de variables}\label{pistes-de-variables}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Démographiques} : tranche d'âge, statut marital, zone de
+  nationalité ou de résidence.
+\item
+  \textbf{Ancienneté} : ancienneté du client et du compte, à calculer
+  depuis leurs dates d'ouverture.
+\item
+  \textbf{Comportementales} : nombre de comptes par client, diversité
+  des produits, secteur, segment commercial.
+\item
+  \textbf{Conformité} : score KYC, dossier complet, ancienneté de la
+  dernière revue.
+\end{itemize}
+
+\section{6. Séries temporelles --- points
+d'attention}\label{suxe9ries-temporelles-points-dattention}
+
+\texttt{ACCT\_CLOSE\_DATE} et \texttt{ACCT\_OPENING\_DATE} permettent de
+construire des séries \textbf{hebdomadaires}. La granularité mensuelle
+ne suffit pas : la période de clôtures couvre environ 47 mois, soit trop
+peu de points pour un LSTM.
+
+\begin{itemize}
+\tightlist
+\item
+  La série des clôtures compte environ \textbf{200 semaines}, dont une
+  dizaine sans aucune clôture : ces semaines valent \textbf{0} et
+  doivent être ajoutées.
+\item
+  \textbf{Cinq semaines concentrent environ la moitié des clôtures} : ce
+  sont des opérations de masse. Elles doivent être identifiées et
+  traitées (variable d'intervention, série corrigée, modèle robuste),
+  puis ce choix doit être justifié.
+\item
+  Comptez la série au grain \textbf{compte} après déduplication, sinon
+  les lignes multiples la déforment.
+\item
+  Le découpage entraînement / test doit \textbf{respecter l'ordre du
+  temps}. Aucun mélange aléatoire.
+\end{itemize}
+
+\section{7. Qualité des données}\label{qualituxe9-des-donnuxe9es}
+
+Le jeu conserve des défauts à traiter dans vos phases d'analyse et d'ETL
+:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Valeurs manquantes} nombreuses : plus de 85 \% sur
+  \texttt{MATURITYDATE}, \texttt{FIXEDRATE}, \texttt{STARTDATE},
+  \texttt{PRODUCT\_STATUS} ; environ 70 \% sur \texttt{SALARY}. Certains
+  vides sont \textbf{volontaires} et viennent de l'anonymisation.
+\item
+  \textbf{Doublons} : plusieurs milliers de lignes strictement
+  identiques, et bien plus au grain compte.
+\item
+  \textbf{Dates numériques} au format \texttt{YYYYMMDD} à convertir. La
+  précision de \texttt{CUST\_OPENING\_DATE} varie selon les clients.
+\item
+  \textbf{Soldes négatifs} et \textbf{montants extrêmes} : environ 32 \%
+  des soldes sortent des bornes IQR. Les comptes débiteurs expliquent
+  une partie de ces valeurs, qu'il faut interpréter avant de les
+  exclure.
+\item
+  \textbf{Valeurs plafonnées} : un pic sur la valeur maximale d'un
+  montant vient du plafonnement, pas d'un phénomène métier.
+\end{itemize}
+
+\section{8. Précautions}\label{pruxe9cautions}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ne pas publier les données}, sur GitHub ou tout autre service.
+\item
+  \textbf{Ne pas chercher} à identifier l'établissement, une agence ou
+  un client.
+\item
+  Utiliser un \texttt{.gitignore} qui exclut au minimum :
+  \texttt{data/}, \texttt{*.csv}, \texttt{*.xlsx}, \texttt{*.pkl},
+  \texttt{*.pbix}.
+\item
+  Ne pas envoyer les données à un service externe (assistant en ligne,
+  outil de profilage hébergé) sans l'accord des tuteurs.
+\end{itemize}
+
+\end{document}

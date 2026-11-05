@@ -1,0 +1,52 @@
+# =========================================================
+# Liste de départ — à adapter selon vos choix techniques
+# =========================================================
+
+# Manipulation et exploration de données
+pandas>=2.0
+numpy>=1.24
+openpyxl>=3.1
+pyarrow>=14.0
+
+# Visualisation
+matplotlib>=3.7
+seaborn>=0.12
+plotly>=5.17
+
+# Base de données (entrepôt PostgreSQL, alimenté par Talend)
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+
+# Série temporelle et Deep Learning (LSTM / RNN)
+statsmodels>=0.14
+tensorflow>=2.15         # ou : torch>=2.2
+
+# Machine Learning
+scikit-learn>=1.3
+xgboost>=2.0
+# lightgbm>=4.1
+# imbalanced-learn>=0.11
+# shap>=0.43
+joblib>=1.3
+
+# Application web
+streamlit>=1.30
+# fastapi>=0.110
+# uvicorn>=0.27
+# gradio>=4.0
+
+# Notebooks
+jupyterlab>=4.0
+ipykernel>=6.25
+
+# Profilage (optionnel, en local uniquement)
+# ydata-profiling>=4.6
+
+# Bonus : web scraping
+# beautifulsoup4>=4.12
+# requests>=2.31
+# playwright>=1.40
+# scrapy>=2.11
+
+# Bonus : tests DevOps
+# pytest>=8.0
