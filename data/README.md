@@ -1,8 +1,8 @@
 # data/
 
-Ce dossier reçoit le **jeu de données anonymisé** du projet. **Il n'est jamais versionné** : les fichiers sont remis par les tuteurs via un canal privé, puis copiés ici par chaque équipe.
+Ce dossier contient le **jeu de données anonymisé** du projet.
 
-## Contenu attendu
+## Contenu
 
 | Fichier | Format | Description |
 |---|---|---|
@@ -27,5 +27,5 @@ La description détaillée des colonnes figure dans `00_documentation/2_descript
 ## Règles d'usage
 
 - Ces données sont fournies **pour un usage pédagogique uniquement**.
-- Ne les redistribuez pas et ne les déposez sur aucun service externe.
+- Ne les recopiez pas dans vos propres dépôts et ne les déposez sur aucun service externe.
 - N'essayez pas d'identifier l'établissement, une agence ou un client. Si vous pensez reconnaître l'un d'eux, prévenez les tuteurs sans le mentionner dans vos livrables.

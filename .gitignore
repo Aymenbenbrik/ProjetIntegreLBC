@@ -10,9 +10,11 @@
 *.sqlite
 *.duckdb
 
-# Aucune donnée n'est versionnée : le dossier data/ ne garde que son README.
+# Seul le jeu assaini du dossier data/ est versionné (fichiers listés ci-dessous).
 data/*
 !data/README.md
+!data/data_churn.csv
+!data/*.xlsx
 
 # Outils et audits réservés à l'encadrant (jamais publiés)
 _confidentiel/

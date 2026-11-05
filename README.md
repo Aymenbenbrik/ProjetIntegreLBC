@@ -14,7 +14,7 @@ Bienvenue. Ce dossier contient l'ensemble des supports nécessaires pour réalis
    - `2_description_donnees.pdf` — la structure des données fournies.
    - `3_timeline.pdf` — les 5 jalons, du 9/11 au 7/12/2026.
    - `4_guide_etudiant.pdf` — le socle obligatoire, les bonus et les outils, étape par étape.
-2. Placez les fichiers de données qui vous seront remis par les tuteurs dans le dossier **`data/`** (ce dossier est ignoré par Git, voir `.gitignore`).
+2. Récupérez les données dans le dossier **`data/`** de ce dépôt.
 3. Travaillez dans les dossiers numérotés correspondants à chaque phase.
 
 ## Structure du dossier
@@ -29,11 +29,11 @@ Bienvenue. Ce dossier contient l'ensemble des supports nécessaires pour réalis
 | `05_web_app/` | Code de l'application web, diagrammes UML et instructions de déploiement |
 | `06_rapport/` | Sources du rapport (Word, LaTeX, etc.) et version PDF finale |
 | `07_presentation/` | Slides de présentation |
-| `data/` | Données brutes (**ne sera pas versionnée**) |
+| `data/` | Jeu de données anonymisé : fichier CSV et 5 fichiers Excel |
 
 ## Règles à respecter
 
-- **Données confidentielles** : aucun fichier de données ne doit être commité sur GitHub. Le dossier `data/` est exclu via `.gitignore`.
+- **Usage des données** : les données du dossier `data/` sont réservées à ce projet. Ne les recopiez pas dans vos propres dépôts ni sur un autre service.
 - **Non-réidentification** : n'essayez pas d'identifier l'établissement, une agence ou un client, et ne faites aucune hypothèse sur l'origine des données dans vos livrables.
 - **Application publique** : uniquement des agrégats et des profils fictifs, jamais de ligne client.
 - **Versioning régulier** : chaque membre de l'équipe doit commiter régulièrement, sur sa branche.
@@ -54,8 +54,7 @@ venv\Scripts\activate      # Windows
 # 3. Installer les dépendances
 pip install -r requirements.txt
 
-# 4. Placer les fichiers de données dans data/
-# (les fichiers vous seront fournis séparément)
+# 4. Les données se trouvent dans le dossier data/ de ce dépôt
 ```
 
 ## Livrables finaux
