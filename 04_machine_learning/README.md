@@ -5,7 +5,7 @@ Placez ici les **modèles prédictifs** de la phase 4 :
 - Le **KPI fixé**, sa justification et l'analyse de sa série temporelle.
 - Le modèle de série temporelle en **Deep Learning (LSTM / RNN)**, comparé à une référence simple.
 - Les notebooks de **Machine Learning pour le churn**.
-- Le contrôle de la **fuite de cible** (voir `00_documentation/2_description_donnees.md`, section 5.1).
+- Le contrôle de la **fuite de cible** (voir `00_documentation/2_description_donnees.pdf`, section 5.1).
 - Le tableau comparatif des modèles et l'interprétabilité (importance des variables, SHAP).
 - *Bonus* : plusieurs KPI.
 

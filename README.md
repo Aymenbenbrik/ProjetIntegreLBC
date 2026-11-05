@@ -10,10 +10,10 @@ Bienvenue. Ce dossier contient l'ensemble des supports nécessaires pour réalis
 ## Par où commencer
 
 1. Lisez les documents du dossier **`00_documentation/`** dans l'ordre :
-   - `1_description_projet.md` — ce qu'on vous demande de faire et les livrables attendus.
-   - `2_description_donnees.md` — la structure des données fournies.
-   - `3_timeline.md` — les 5 jalons, du 9/11 au 7/12/2026.
-   - `4_guide_etudiant.md` — le socle obligatoire, les bonus et les outils, étape par étape.
+   - `1_description_projet.pdf` — ce qu'on vous demande de faire et les livrables attendus.
+   - `2_description_donnees.pdf` — la structure des données fournies.
+   - `3_timeline.pdf` — les 5 jalons, du 9/11 au 7/12/2026.
+   - `4_guide_etudiant.pdf` — le socle obligatoire, les bonus et les outils, étape par étape.
 2. Placez les fichiers de données qui vous seront remis par les tuteurs dans le dossier **`data/`** (ce dossier est ignoré par Git, voir `.gitignore`).
 3. Travaillez dans les dossiers numérotés correspondants à chaque phase.
 

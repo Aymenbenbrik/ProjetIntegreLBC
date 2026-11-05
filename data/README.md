@@ -13,7 +13,7 @@ Ce dossier reçoit le **jeu de données anonymisé** du projet. **Il n'est jamai
 | `INDUSTRY.xlsx` | Excel | Sections d'activité |
 | `TARGET.xlsx` | Excel | Lignes métier |
 
-La description détaillée des colonnes figure dans `00_documentation/2_description_donnees.md`.
+La description détaillée des colonnes figure dans `00_documentation/2_description_donnees.pdf`.
 
 ## Protection appliquée
 
